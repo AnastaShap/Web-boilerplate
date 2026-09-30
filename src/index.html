@@ -15,7 +15,398 @@
    </head>
 
    <body itemscope itemtype="http://schema.org/WebPage">
-      <script type="text/javascript" src="./js/app.js"></script>
+      <!-- <script type="text/javascript" src="./js/app.js"></script> -->
+       <!-- <script src="./js/app.js"></script> -->
       
+      <div class="container">
+
+         <header class="header">
+            <div class="header__top">
+            <h1 class="logo">Teachinder</h1>
+            <form class="search-form">
+               <input type="text" placeholder="Name, note or age to search">
+               <button type="submit">Search</button>
+            </form>
+      </div>
+
+      <nav class="header__nav">
+        <ul class="nav-list">
+          <li><a href="#teachers">Teachers</a></li>
+          <li><a href="#statistics">Statistics</a></li>
+          <li><a href="#favorites">Favorites</a></li>
+          <li><a href="#about">About</a></li>
+        </ul>
+        <button
+            class="btn btn--outline btn--add-teacher"
+            type="button">
+            Add teacher
+         </button>
+      </nav>
+      </header>
+
+      <main class="main">
+         <section class="teachers" id="teachers">
+            <h2 class="section-title">Top Teachers</h2>
+            <form class = "filters">
+               <label>Age
+                  <select name="age">
+                  <option value="18-31">18-31</option>
+                  </select>
+               </label>
+               <label>Region 
+                  <select name="region">
+                  <option value="Europe">Europe</option>
+                  </select>
+               </label>
+
+               <label>Sex
+                  <select name="sex">
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                  </select>
+               </label>
+
+               <label>
+                  <input type="checkbox" name="with-photo">
+                  Only with photo
+               </label>
+               <label>
+                  <input type="checkbox" name="favorites"> Only favorites
+               </label>
+            </form>
+
+            <div class="teachers-grid">
+               <article class="teacher-card">
+                  <div class="teacher-card__photo">
+                     <img src="images/tkachuk.jpg" alt="Ihor Tkachuk" class="teacher-card__avatar">
+                  </div>
+                     <h3 class="teacher-card__name">Ihor<br>Tkachuk</h3>
+                     <p class="teacher-card__speciality">Chemistry</p>
+                     <p class="teacher-card__country">Ukraine</p>
+                     <!--
+                     <p class="teacher-card__region">Region: Europe</p>
+                     <p class="teacher-card__sex">Sex: Male</p>
+                     <p class="teacher-card__note">Note: Experienced in teaching mathematics.</p>
+                     -->
+               </article>
+
+               <article class="teacher-card">
+                  <div class="teacher-card__avatar-wrap">
+                     <img src="images/pragg.jpg" alt="Pragg Rameshbbabu" class="teacher-card__avatar">
+                  </div>
+                  <h3 class="teacher-card__name">Pragg<br>Rameshbbabu</h3>
+                  <p class="teacher-card__speciality">Chess</p>
+                  <p class="teacher-card__country">India</p>
+               </article>
+
+               <!-- 3. Floor Jansen (з зірочкою фаворита) -->
+               <article class="teacher-card teacher-card--favorite">
+                  <div class="teacher-card__avatar-wrap">
+                     <span class="teacher-card__star">★</span>
+                     <img src="images/floor.jpg" alt="Floor Jansen" class="teacher-card__avatar">
+                  </div>
+                  <h3 class="teacher-card__name">Floor<br>Jansen</h3>
+                  <p class="teacher-card__speciality">Vocal</p>
+                  <p class="teacher-card__country">Denmark</p>
+               </article>
+
+               <!-- 4. John Burke -->
+               <article class="teacher-card">
+                  <div class="teacher-card__avatar-wrap">
+                     <img src="images/john.jpg" alt="John Burke" class="teacher-card__avatar">
+                  </div>
+                  <h3 class="teacher-card__name">John<br>Burke</h3>
+                  <p class="teacher-card__speciality">Computer Science</p>
+                  <p class="teacher-card__country">Belgium</p>
+               </article>
+
+               <!-- 5. Ari Tang (з зірочкою фаворита) -->
+               <article class="teacher-card teacher-card--favorite">
+                  <div class="teacher-card__avatar-wrap">
+                     <span class="teacher-card__star">★</span>
+                     <img src="images/ari.jpg" alt="Ari Tang" class="teacher-card__avatar">
+                  </div>
+                  <h3 class="teacher-card__name">Ari<br>Tang</h3>
+                  <p class="teacher-card__speciality">Biology</p>
+                  <p class="teacher-card__country">China</p>
+               </article>
+
+               <!-- 6. Rachel Andrew -->
+               <article class="teacher-card">
+                  <div class="teacher-card__avatar-wrap">
+                     <img src="images/rachel.jpg" alt="Rachel Andrew" class="teacher-card__avatar">
+                  </div>
+                  <h3 class="teacher-card__name">Rachel<br>Andrew</h3>
+                  <p class="teacher-card__speciality">Medicine</p>
+                  <p class="teacher-card__country">UK</p>
+               </article>
+
+               <article class="teacher-card">
+                  <div class="teacher-card__avatar-wrap teacher-card__avatar--initials">
+                     <span>A.M</span>
+                  </div>
+                  <h3 class="teacher-card__name">Anna<br>Muzychuk</h3>
+                  <p class="teacher-card__speciality">Chess</p>
+                  <p class="teacher-card__country">Belarus</p>
+               </article>
+               <article class="teacher-card">
+                  <div class="teacher-card__avatar-wrap teacher-card__avatar--initials">
+                     <span>R.L</span>
+                  </div>
+                  <h3 class="teacher-card__name">Radoslaw<br>Ljuboevic</h3>
+                  <p class="teacher-card__speciality">Physics</p>
+                  <p class="teacher-card__country">Poland</p>
+               </article>
+            </div>
+         </section>
+
+         <section class="statistics-section" id="statistics">
+            <h2 class="section-title">Statistics</h2>
+
+
+
+            <table class="statistics__content">
+               <thead>
+                  <tr>
+                     <th>Name</th>
+                     <th>Speciality</th>
+                     <th>Age</th>
+                     <th>Gender</th>
+                     <th>Nationality</th>
+                  </tr>
+               </thead>
+               <tbody>
+            <tr>
+              <td>Daisy Alexander</td>
+              <td>Chemistry</td>
+              <td>28</td>
+              <td>Female</td>
+              <td>Vietnam</td>
+            </tr>
+            <tr>
+      <td>Julia Bradley</td>
+      <td>Math</td>
+      <td>26</td>
+      <td>Female</td>
+      <td>USA</td>
+    </tr>
+    <tr>
+      <td>Rita Hart</td>
+      <td>Art</td>
+      <td>41</td>
+      <td>Female</td>
+      <td>Ireland</td>
+    </tr>
+    <tr>
+      <td>Jonathan Jacobs</td>
+      <td>Math</td>
+      <td>32</td>
+      <td>Male</td>
+      <td>England</td>
+    </tr>
+    <tr>
+      <td>Nathaniel White</td>
+      <td>Computer Science</td>
+      <td>37</td>
+      <td>Male</td>
+      <td>Austria</td>
+    </tr>
+    <tr>
+      <td>Frank Medina</td>
+      <td>English</td>
+      <td>43</td>
+      <td>Male</td>
+      <td>Italy</td>
+    </tr>
+    <tr>
+      <td>Ella Curtis</td>
+      <td>Chess</td>
+      <td>34</td>
+      <td>Female</td>
+      <td>USA</td>
+    </tr>
+    <tr>
+      <td>Claire Simmmons</td>
+      <td>Art</td>
+      <td>38</td>
+      <td>Female</td>
+      <td>Netherlands</td>
+    </tr>
+    <tr>
+      <td>Benjamin Knight</td>
+      <td>Biology</td>
+      <td>44</td>
+      <td>Male</td>
+      <td>Scotland</td>
+    </tr>
+    <tr>
+      <td>Norma Rose</td>
+      <td>Statistics</td>
+      <td>36</td>
+      <td>Female</td>
+      <td>France</td>
+    </tr>
+  </tbody></table>
+         <nav class="pagination">
+            <a href="#">1</a>
+            <a href="#">2</a>
+            <a href="#">3</a>
+            <span>...</span>
+            <a href="#">Last</a>
+
+         </nav>
+         </section>
+
+         <section class="favorites-section" id="favorites">
+            <h2 class="section-title">Favorites</h2>
+            <div class="favorites__carousel">
+               <button class = "carousel__btn carousel__btn--prev" aria-label="Previous">&lt;</button>
+               <div class = "carousel__items">
+                  <article class="teacher-card">
+                     <div class="teacher-card__photo">
+                        <h3 class="teacher-card__name">Ihor<br>Tkachuk</h3>
+                        <p class="teacher-card__country">Ukraine</p>
+                     </div>
+                  </article>
+                  <article class="teacher-card">
+                     <div class="teacher-card__avatar-wrap teacher-card__avatar--initials">
+                        <span class="teacher-card__initials-text">A.M</span>
+                     </div>
+                     <h3 class="teacher-card__name">Anna<br>Makarevich</h3>
+                     <p class="teacher-card__country">Ukraine</p>
+                  </article>
+                  <article class="teacher-card">
+                     <div class="teacher-card__avatar-wrap">
+                        <img src="images/john.jpg" alt="John Burke" class="teacher-card__avatar">
+                     </div>
+                     <h3 class="teacher-card__name">John<br>Burke</h3>
+                     <p class="teacher-card__country">Belgium</p>
+                  </article>
+                  <article class="teacher-card">
+                     <div class="teacher-card__avatar-wrap">
+                        <img src="images/ari.jpg" alt="Ari Tang" class="teacher-card__avatar">
+                     </div>
+                     <h3 class="teacher-card__name">Ari<br>Tang</h3>
+                     <p class="teacher-card__country">China</p>
+                  </article>
+                  <article class="teacher-card">
+                     <div class="teacher-card__avatar-wrap">
+                        <img src="images/floor.jpg" alt="Floor Jansen" class="teacher-card__avatar">
+                     </div>
+                     <h3 class="teacher-card__name">Floor<br>Jansen</h3>
+                     <p class="teacher-card__country">Denmark</p>
+                  </article>
+
+                  <article class="teacher-card">
+                     <div class="teacher-card__avatar-wrap teacher-card__avatar--initials">
+                        <span>A.M</span>
+                     </div>
+                     <h3 class="teacher-card__name">Anna<br>Muzychuk</h3>
+                     <p class="teacher-card__speciality">Chemistry</p>
+                     <p class="teacher-card__country">Poland</p>
+                  </article>
+                  <article class="teacher-card">
+                     <div class="teacher-card__photo">
+                        <h3 class="teacher-card__name">Radoslaw<br>Ljuboevic</h3>
+                        <p class="teacher-card__country">Belarus</p>
+                     </div>
+
+               </div>
+               <button class = "carousel__btn carousel__btn--next" aria-label="Next">&gt;</button>
+            </div>
+         </section>
+
+         <section class="about-text" id="about">
+            <h2 class="section-title">About</h2>
+           <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
+      </section>
+
+      <footer class="footer">
+      <nav class="footer__nav">
+        <ul class="nav-list">
+          <li><a href="#teachers">Teachers</a></li>
+          <li><a href="#statistics">Statistics</a></li>
+          <li><a href="#favorites">Favorites</a></li>
+          <li><a href="#about">About</a></li>
+        </ul>
+        <button class="btn btn--outline" type="button">Add teacher</button>
+      </nav>
+    </footer>
+
+      </div>
+
+            <!-- Оверлей для центрування та затемнення фону -->
+            <div class="modal-overlay" id="modal-overlay">
+
+         <!-- Попап 1: Форма додавання викладача -->
+      <div class="modal" id="modal-add-teacher">
+         <div class="modal__header">
+            <h3>Add Teacher</h3>
+            <button class="modal__close" type="button">&times;</button>
+         </div>
+         <form class="modal__form">
+            <div class="form-group">
+            <label>Name</label>
+            <input type="text" placeholder="Enter name" required>
+            </div>
+            <div class="form-group">
+            <label>Speciality</label>
+            <select>
+               <option>Math</option>
+               <option>Chemistry</option>
+               <option>Computer Science</option>
+            </select>
+            </div>
+            <div class="form-group-row">
+            <div class="form-group">
+               <label>Country</label>
+               <select><option>Ukraine</option></select>
+            </div>
+            <div class="form-group">
+               <label>City</label>
+               <input type="text">
+            </div>
+            </div>
+            <div class="form-group-row">
+            <div class="form-group">
+               <label>Email</label>
+               <input type="email">
+            </div>
+            <div class="form-group">
+               <label>Phone</label>
+               <input type="tel">
+            </div>
+            </div>
+            <div class="form-group">
+            <label>Notes</label>
+            <textarea rows="4"></textarea>
+            </div>
+            <button type="submit" class="btn btn--outline">Add</button>
+         </form>
+      </div>
+
+      <div class="modal" id="modal-teacher-info">
+         <div class="modal__header">
+            <h3>Teacher Info</h3>
+            <button class="modal__close" type="button">&times;</button>
+         </div>
+         <div class="modal__body">
+            <div class="teacher-info__header">
+            <img src="images/ihor.jpg" alt="Ihor Tkachuk" class="teacher-info__avatar">
+            <div>
+               <h4 class="teacher-info__name">Ihor Tkachuk</h4>
+               <p class="teacher-info__speciality">Chemistry</p>
+               <p class="teacher-info__location">Kyiv, Ukraine</p>
+            </div>
+            </div>
+            <p class="teacher-info__text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut enim ad minim veniam.</p>
+            <a href="#" class="teacher-info__link">teacther@example.com</a>
+         </div>
+      </div>
+
+      </div>
+      <script type="text/javascript" src="./js/index.js"></script>
   </body>
 </html>
