@@ -313,7 +313,6 @@ h2 {
   padding: 30px 0 60px;
 }
 
-/* Clearfix для очищення float-потоку */
 .footer::after {
   content: "";
   display: table;
@@ -322,9 +321,13 @@ h2 {
 
 .footer__nav .nav-list {
   float: left;
+  line-height: 42px;
 }
 
-/*  МОДАЛЬНІ ВІКНА (ПОПАПИ - Завдання 3) */
+.footer__nav .btn--outline {
+  float: right;
+}
+
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -355,22 +358,26 @@ h2 {
 }
 
 .modal__header {
+  background-color: #444;
+  padding: 12px 18px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+  color: #fff;
 }
 
 .modal__header h3 {
-  font-size: 24px;
+  font-size: 16px;
+  font-weight: normal;
   margin: 0;
 }
 
 .modal__close {
   background: transparent;
   border: none;
-  font-size: 28px;
-  color: var(--text-muted);
+  font-size: 20px;
+  color: #fff;
+  cursor: pointer;
   line-height: 1;
 }
 
@@ -378,10 +385,8 @@ h2 {
   color: var(--primary-color);
 }
 
-.modal__form {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
+.modal__body {
+  padding: 24px;
 }
 
 .form-group label {
@@ -416,6 +421,31 @@ h2 {
   flex: 1;
 }
 
+.teacher-info__grid {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 24px;
+  margin-bottom: 20px;
+}
+
+.teacher-info__photo {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  display: block;
+}
+
+.teacher-info__photo--initials {
+  background-color: #fdf5f4;
+  border: 2px dashed var(--primary-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  font-weight: bold;
+  color: var(--primary-color);
+}
+
 .teacher-info__header {
   display: flex;
   gap: 20px;
@@ -430,9 +460,40 @@ h2 {
   object-fit: cover;
 }
 
+.teacher-info__details {
+  display: flex;
+  flex-direction: column;
+}
+
+.teacher-info__top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
 .teacher-info__name {
   font-size: 22px;
-  margin: 0 0 5px 0;
+  font-weight: bold;
+  margin: 0;
+  color: #222;
+}
+
+.teacher-info__star {
+  font-size: 24px;
+  color: #ccc;
+  cursor: pointer;
+}
+
+.teacher-info__star--active {
+  color: #f9ca24;
+}
+
+.teacher-info__subject {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 12px;
+  color: #333;
 }
 
 .teacher-info__link {
@@ -440,10 +501,17 @@ h2 {
   text-decoration: none;
 }
 
+.teacher-info__location,
+.teacher-info__meta,
+.teacher-info__phone {
+  font-size: 13px;
+  color: #777;
+  margin-bottom: 6px;
+}
+
 /* (Завдання 4) */
 
 @media (max-width: 767px) {
-  /* Шапка */
   .header__top {
     flex-direction: column;
     gap: 15px;
@@ -465,12 +533,28 @@ h2 {
     justify-content: center;
   }
 
-  /* Сітка карток (замість 5 колонок робимо 2 або 1) */
+  /* Сітка карток */
   .teachers-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 
-  /* Таблиця статистики (додаємо горизонтальний скрол) */
+  .teacher-info__grid {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    text-align: center;
+  }
+
+  .teacher-info__photo {
+    width: 160px;
+    height: 160px;
+  }
+
+  .teacher-info__top {
+    justify-content: center;
+    gap: 10px;
+  }
+
+  /* Таблиця статистики */
   .statistics-table {
     display: block;
     width: 100%;
@@ -478,14 +562,14 @@ h2 {
     white-space: nowrap;
   }
 
-  /* Підвал (скидання float) */
   .footer__nav .nav-list {
     float: none;
+    line-height: normal;
     justify-content: center;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
   }
 
-  .footer__nav .btn {
+  .footer__nav .btn--outline {
     float: none;
     display: block;
     margin: 0 auto;
