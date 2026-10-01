@@ -1,0 +1,182 @@
+body {
+  background-color: lightgreen !important;
+}
+$primary-color: #f75c48;
+$text-dark: #333333;
+$text-gray: #888888;
+$bg-color: #ffffff;
+
+$font-logo: 'Georgia', serif; 
+$font-main: 'Helvetica', 'Arial', sans-serif;
+
+@mixin clearfix {
+  &::after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+
+// Міксин для обрізання тексту з трикрапкою
+@mixin text-truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: $font-main;
+  color: $text-dark;
+  background-color: $bg-color;
+  line-height: 1.5;
+}
+
+/* Каркас (Ширина контенту згідно з п. 2.1) */
+.container {
+  max-width: 1200px; 
+  margin: 0 auto;
+  padding: 0 15px; 
+}
+
+.header {
+  padding: 40px 0 20px;
+
+  &__top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+
+    .logo {
+      font-family: $font-logo;
+      font-size: 36px;
+      color: $primary-color;
+      font-weight: normal;
+    }
+  }
+
+  &__nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+.nav-list {
+  list-style: none;
+  display: flex;
+  gap: 30px; /* Відступ між елементами меню */
+
+  a {
+    text-decoration: none;
+    color: $text-dark;
+    font-size: 16px;
+    font-weight: bold;
+    transition: color 0.3s ease; /* Плавна анімація */
+
+    &:hover {
+      color: $primary-color;
+    }
+  }
+}
+
+.btn {
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+
+  &--outline {
+    border: 2px solid $primary-color;
+    background: transparent;
+    color: $primary-color;
+    font-weight: bold;
+
+    &:hover {
+      background: $primary-color;
+      color: $bg-color;
+    }
+  }
+}
+section {
+  margin-bottom: 60px;
+}
+
+h2 {
+  text-align: center;
+  font-size: 32px;
+  margin-bottom: 40px; /* Відступ між заголовком та текстом/контентом */
+}
+
+/* Сітка карток викладачів (GRID) */
+.teachers-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 20px;
+}
+
+.teacher-card {
+  text-align: center;
+  
+  &__avatar-wrap {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 15px;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    transition: border-color 0.3s;
+
+    &:hover {
+      border-color: $primary-color;
+    }
+  }
+
+  &__avatar {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+
+  &--favorite .teacher-card__star {
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: gold;
+    font-size: 24px;
+  }
+  &__avatar--initials {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid $primary-color;
+    background-color: #fdf5f4;
+    color: $primary-color;
+    font-size: 24px;
+    font-weight: bold;
+  }
+}
+
+
+.footer {
+  @include clearfix; /* Виклик міксину для очищення потоку */
+  padding: 40px 0;
+  border-top: 1px solid #eeeeee;
+
+  /* Навігація притискається ліворуч */
+  &__nav {
+    float: left;
+  }
+  /* Кнопка притискається праворуч */
+  .btn {
+    float: right;
+  }
+}

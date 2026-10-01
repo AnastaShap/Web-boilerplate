@@ -3,3 +3,580 @@
 
 /* Reset and normalize */
 @import url('./normalize.css');
+
+:root {
+  --primary-color: #f75c48;
+  --primary-hover: #e04432;
+  --text-main: #333;
+  --text-muted: #888;
+  --bg-color: #fff;
+  --border-color: #e5e5e5;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  color: var(--text-main);
+  background-color: var(--bg-color);
+  line-height: 1.4;
+  text-align: left; /* Перевизначаємо text-align: center з normalize.css */
+}
+
+.container {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.header {
+  padding: 30px 0 20px;
+}
+
+.header__top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.logo {
+  font-family: Georgia, serif;
+  font-size: 38px;
+  color: var(--primary-color);
+  margin: 0;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.search-form {
+  display: flex;
+  gap: 10px;
+}
+
+.search-form input {
+  padding: 10px 14px;
+  border: 1px solid var(--border-color);
+  font-size: 14px;
+  width: 260px;
+  outline: none;
+}
+
+.search-form input:focus {
+  border-color: var(--primary-color);
+}
+
+.search-form button {
+  padding: 10px 20px;
+  background-color: transparent;
+  border: 1px solid var(--primary-color);
+  color: var(--primary-color);
+  font-weight: bold;
+  transition: all 0.2s ease;
+}
+
+.search-form button:hover {
+  background-color: var(--primary-color);
+  color: #fff;
+}
+
+.header__nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 20px;
+}
+
+.pagination {
+  display: flex;
+  gap: 12px;
+  font-size: 14px;
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+.pagination a {
+  text-decoration: none;
+  color: #1e90ff;
+}
+
+.pagination a:hover {
+  text-decoration: underline;
+}
+
+.nav-list {
+  display: flex;
+  gap: 30px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.nav-list a {
+  text-decoration: none;
+  color: var(--primary-color);
+  font-size: 18px;
+  font-weight: bold;
+  transition: opacity 0.2s;
+}
+
+.nav-list a:hover {
+  opacity: 0.7;
+}
+
+.btn--outline {
+  padding: 10px 22px;
+  border: 2px solid var(--primary-color);
+  background: transparent;
+  color: var(--primary-color);
+  font-size: 16px;
+  font-weight: bold;
+  transition: all 0.2s ease;
+}
+
+.btn--outline:hover {
+  background-color: var(--primary-color);
+  color: #fff;
+}
+
+section {
+  margin-top: 40px;
+  margin-bottom: 50px;
+}
+
+h2 {
+  text-align: center;
+  font-size: 32px;
+  margin-bottom: 25px;
+  color: var(--text-main);
+}
+
+.filters {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 15px 0;
+  margin-bottom: 35px;
+  border-top: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.filters select {
+  padding: 6px 10px;
+  border: 1px solid var(--border-color);
+  background-color: #fff;
+  color: var(--text-main);
+  outline: none;
+}
+
+.filters label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+
+.teachers-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 30px 20px;
+}
+
+.teacher-card {
+  text-align: center;
+}
+
+.teacher-card__avatar-wrap {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  margin: 0 auto 12px;
+  border-radius: 50%;
+  border: 4px solid var(--primary-color);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fdf5f4;
+}
+
+.teacher-card__avatar {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.teacher-card__star {
+  position: absolute;
+  top: 6px;
+  right: 12px;
+  color: #f9ca24;
+  font-size: 22px;
+  z-index: 2;
+}
+
+.teacher-card__avatar--initials .teacher-card__initials-text {
+  font-size: 20px;
+  font-weight: bold;
+  color: var(--primary-color);
+}
+
+.teacher-card__name {
+  font-size: 17px;
+  font-weight: bold;
+  margin-bottom: 4px;
+  line-height: 1.2;
+}
+
+.teacher-card__speciality {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: 2px;
+}
+
+.teacher-card__country {
+  font-size: 12px;
+  color: #aaa;
+}
+
+/* СТАТИСТИКА (ТАБЛИЦЯ ТА ПАГІНАЦІЯ) */
+.statistics-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.statistics-table th {
+  padding: 12px 10px;
+  border-bottom: 2px solid var(--text-main);
+  text-align: left;
+  font-weight: bold;
+  font-size: 15px;
+}
+
+.statistics-table td {
+  padding: 10px;
+  border-bottom: 1px solid var(--border-color);
+  font-size: 14px;
+}
+
+.statistics-table tbody tr:hover {
+  background-color: #f9f9f9;
+}
+
+/*
+    FAVORITES (КАРУСЕЛЬ)
+    */
+.carousel {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+.carousel__items {
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  flex: 1;
+}
+
+.carousel__btn {
+  background: transparent;
+  border: none;
+  font-size: 32px;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 10px;
+  transition: color 0.2s;
+}
+
+.carousel__btn:hover {
+  color: var(--primary-color);
+}
+
+/* ТЕКСТОВИЙ БЛОК */
+.about-text {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.6;
+  border-top: 1px solid var(--border-color);
+  padding-top: 30px;
+}
+
+.about-text p {
+  margin-bottom: 14px;
+}
+
+/*  FOOTER (FLOAT) */
+.footer {
+  border-top: 1px solid var(--border-color);
+  padding: 30px 0 60px;
+}
+
+.footer::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.footer__nav .nav-list {
+  float: left;
+  line-height: 42px;
+}
+
+.footer__nav .btn--outline {
+  float: right;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: none; /* За замовчуванням сховано */
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal {
+  background-color: var(--bg-color);
+  width: 90%;
+  max-width: 500px;
+  padding: 25px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+  display: none; /* За замовчуванням сховано */
+}
+
+/* Клас для активного модального вікна */
+.modal--active {
+  display: block;
+}
+
+.modal__header {
+  background-color: #444;
+  padding: 12px 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #fff;
+}
+
+.modal__header h3 {
+  font-size: 16px;
+  font-weight: normal;
+  margin: 0;
+}
+
+.modal__close {
+  background: transparent;
+  border: none;
+  font-size: 20px;
+  color: #fff;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.modal__close:hover {
+  color: var(--primary-color);
+}
+
+.modal__body {
+  padding: 24px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-bottom: 5px;
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid var(--border-color);
+  outline: none;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: var(--primary-color);
+}
+
+.form-group-row {
+  display: flex;
+  gap: 15px;
+}
+
+.form-group-row .form-group {
+  flex: 1;
+}
+
+.teacher-info__grid {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 24px;
+  margin-bottom: 20px;
+}
+
+.teacher-info__photo {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  display: block;
+}
+
+.teacher-info__photo--initials {
+  background-color: #fdf5f4;
+  border: 2px dashed var(--primary-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  font-weight: bold;
+  color: var(--primary-color);
+}
+
+.teacher-info__header {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.teacher-info__avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.teacher-info__details {
+  display: flex;
+  flex-direction: column;
+}
+
+.teacher-info__top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.teacher-info__name {
+  font-size: 22px;
+  font-weight: bold;
+  margin: 0;
+  color: #222;
+}
+
+.teacher-info__star {
+  font-size: 24px;
+  color: #ccc;
+  cursor: pointer;
+}
+
+.teacher-info__star--active {
+  color: #f9ca24;
+}
+
+.teacher-info__subject {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 12px;
+  color: #333;
+}
+
+.teacher-info__link {
+  color: #1e90ff;
+  text-decoration: none;
+}
+
+.teacher-info__location,
+.teacher-info__meta,
+.teacher-info__phone {
+  font-size: 13px;
+  color: #777;
+  margin-bottom: 6px;
+}
+
+/* (Завдання 4) */
+
+@media (max-width: 767px) {
+  .header__top {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .header__nav {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .nav-list {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  /* Фільтри */
+  .filters {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  /* Сітка карток */
+  .teachers-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .teacher-info__grid {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    text-align: center;
+  }
+
+  .teacher-info__photo {
+    width: 160px;
+    height: 160px;
+  }
+
+  .teacher-info__top {
+    justify-content: center;
+    gap: 10px;
+  }
+
+  /* Таблиця статистики */
+  .statistics-table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .footer__nav .nav-list {
+    float: none;
+    line-height: normal;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+
+  .footer__nav .btn--outline {
+    float: none;
+    display: block;
+    margin: 0 auto;
+  }
+
+  /* Попапи для мобільних */
+  .form-group-row {
+    flex-direction: column;
+  }
+}
