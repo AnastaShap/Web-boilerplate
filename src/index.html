@@ -76,21 +76,16 @@
             </form>
 
             <div class="teachers-grid">
-               <article class="teacher-card">
-                  <div class="teacher-card__photo">
-                     <img src="images/tkachuk.jpg" alt="Ihor Tkachuk" class="teacher-card__avatar">
+               <article class="teacher-card" data-modal-id="modal-teacher-tkachuk">
+                  <div class="teacher-card__avatar-wrap">
+                     <img src="images/ihor.jpg" alt="Ihor Tkachuk" class="teacher-card__avatar">
                   </div>
                      <h3 class="teacher-card__name">Ihor<br>Tkachuk</h3>
                      <p class="teacher-card__speciality">Chemistry</p>
                      <p class="teacher-card__country">Ukraine</p>
-                     <!--
-                     <p class="teacher-card__region">Region: Europe</p>
-                     <p class="teacher-card__sex">Sex: Male</p>
-                     <p class="teacher-card__note">Note: Experienced in teaching mathematics.</p>
-                     -->
                </article>
 
-               <article class="teacher-card">
+               <article class="teacher-card" data-modal-id="modal-teacher-pragg">
                   <div class="teacher-card__avatar-wrap">
                      <img src="images/pragg.jpg" alt="Pragg Rameshbbabu" class="teacher-card__avatar">
                   </div>
@@ -100,7 +95,7 @@
                </article>
 
                <!-- 3. Floor Jansen (з зірочкою фаворита) -->
-               <article class="teacher-card teacher-card--favorite">
+               <article class="teacher-card teacher-card--favorite" data-modal-id="modal-teacher-floor">
                   <div class="teacher-card__avatar-wrap">
                      <span class="teacher-card__star">★</span>
                      <img src="images/floor.jpg" alt="Floor Jansen" class="teacher-card__avatar">
@@ -111,7 +106,7 @@
                </article>
 
                <!-- 4. John Burke -->
-               <article class="teacher-card">
+               <article class="teacher-card" data-modal-id="modal-teacher-john">
                   <div class="teacher-card__avatar-wrap">
                      <img src="images/john.jpg" alt="John Burke" class="teacher-card__avatar">
                   </div>
@@ -121,7 +116,7 @@
                </article>
 
                <!-- 5. Ari Tang (з зірочкою фаворита) -->
-               <article class="teacher-card teacher-card--favorite">
+               <article class="teacher-card teacher-card--favorite" data-modal-id="modal-teacher-ari">
                   <div class="teacher-card__avatar-wrap">
                      <span class="teacher-card__star">★</span>
                      <img src="images/ari.jpg" alt="Ari Tang" class="teacher-card__avatar">
@@ -132,7 +127,7 @@
                </article>
 
                <!-- 6. Rachel Andrew -->
-               <article class="teacher-card">
+               <article class="teacher-card" data-modal-id="modal-teacher-rachel">
                   <div class="teacher-card__avatar-wrap">
                      <img src="images/rachel.jpg" alt="Rachel Andrew" class="teacher-card__avatar">
                   </div>
@@ -141,7 +136,7 @@
                   <p class="teacher-card__country">UK</p>
                </article>
 
-               <article class="teacher-card">
+               <article class="teacher-card" data-modal-id="modal-teacher-anna">
                   <div class="teacher-card__avatar-wrap teacher-card__avatar--initials">
                      <span>A.M</span>
                   </div>
@@ -149,7 +144,7 @@
                   <p class="teacher-card__speciality">Chess</p>
                   <p class="teacher-card__country">Belarus</p>
                </article>
-               <article class="teacher-card">
+               <article class="teacher-card" data-modal-id="modal-teacher-radoslaw">
                   <div class="teacher-card__avatar-wrap teacher-card__avatar--initials">
                      <span>R.L</span>
                   </div>
@@ -387,24 +382,233 @@
          </form>
       </div>
 
-      <div class="modal" id="modal-teacher-info">
-         <div class="modal__header">
-            <h3>Teacher Info</h3>
-            <button class="modal__close" type="button">&times;</button>
-         </div>
-         <div class="modal__body">
-            <div class="teacher-info__header">
-            <img src="images/ihor.jpg" alt="Ihor Tkachuk" class="teacher-info__avatar">
-            <div>
-               <h4 class="teacher-info__name">Ihor Tkachuk</h4>
-               <p class="teacher-info__speciality">Chemistry</p>
-               <p class="teacher-info__location">Kyiv, Ukraine</p>
-            </div>
-            </div>
-            <p class="teacher-info__text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut enim ad minim veniam.</p>
-            <a href="#" class="teacher-info__link">teacther@example.com</a>
-         </div>
+      <!-- 1. Ihor Tkachuk -->
+<div class="modal" id="modal-teacher-tkachuk">
+  <div class="modal__header">
+    <h3>Teacher Info</h3>
+    <button class="modal__close" type="button">&times;</button>
+  </div>
+  <div class="modal__body">
+    <div class="teacher-info__grid">
+      <img src="images/ihor.jpg" alt="Ihor Tkachuk" class="teacher-info__photo">
+      <div class="teacher-info__details">
+        <div class="teacher-info__top">
+          <h4 class="teacher-info__name">Ihor Tkachuk</h4>
+          <span class="teacher-info__star">☆</span>
+        </div>
+        <p class="teacher-info__subject">Chemistry</p>
+        <p class="teacher-info__location">Kyiv, Ukraine</p>
+        <p class="teacher-info__meta">35, Male</p>
+        <a href="mailto:ihor_tkachuk@domain.com" class="teacher-info__email">ihor_tkachuk@domain.com</a>
+        <p class="teacher-info__phone">+380964993252</p>
       </div>
+    </div>
+    <p class="teacher-info__desc">
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab autem consectetur culpa cumque, distinctio dolor dolore dolorem doloremque ea explicabo facilis nam nesciunt nisi pariatur perspiciatis porro quis similique temporibus veniam veritatis? A ab ad, aliquam amet consequatur cupiditate debitis deserunt doloribus dolorum earum eius eos minus nostrum odit omnis perferendis...
+    </p>
+    <a href="#" class="teacher-info__map-toggle">toggle map</a>
+  </div>
+</div>
+
+<!-- 2. Pragg Rameshbbabu -->
+<div class="modal" id="modal-teacher-pragg">
+  <div class="modal__header">
+    <h3>Teacher Info</h3>
+    <button class="modal__close" type="button">&times;</button>
+  </div>
+  <div class="modal__body">
+    <div class="teacher-info__grid">
+      <img src="images/pragg.jpg" alt="Pragg Rameshbbabu" class="teacher-info__photo">
+      <div class="teacher-info__details">
+        <div class="teacher-info__top">
+          <h4 class="teacher-info__name">Pragg Rameshbbabu</h4>
+          <span class="teacher-info__star">☆</span>
+        </div>
+        <p class="teacher-info__subject">Chess</p>
+        <p class="teacher-info__location">Chennai, India</p>
+        <p class="teacher-info__meta">18, Male</p>
+        <a href="mailto:pragg_chess@domain.com" class="teacher-info__email">pragg_chess@domain.com</a>
+        <p class="teacher-info__phone">+919876543210</p>
+      </div>
+    </div>
+    <p class="teacher-info__desc">
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab autem consectetur culpa cumque, distinctio dolor dolore dolorem doloremque ea explicabo facilis nam nesciunt nisi pariatur perspiciatis porro quis similique temporibus veniam veritatis?
+    </p>
+    <a href="#" class="teacher-info__map-toggle">toggle map</a>
+  </div>
+</div>
+
+<!-- 3. Floor Jansen-->
+<div class="modal" id="modal-teacher-floor">
+  <div class="modal__header">
+    <h3>Teacher Info</h3>
+    <button class="modal__close" type="button">&times;</button>
+  </div>
+  <div class="modal__body">
+    <div class="teacher-info__grid">
+      <img src="images/floor.jpg" alt="Floor Jansen" class="teacher-info__photo">
+      <div class="teacher-info__details">
+        <div class="teacher-info__top">
+          <h4 class="teacher-info__name">Floor Jansen</h4>
+          <span class="teacher-info__star teacher-info__star--active">★</span>
+        </div>
+        <p class="teacher-info__subject">Vocal</p>
+        <p class="teacher-info__location">Copenhagen, Denmark</p>
+        <p class="teacher-info__meta">42, Female</p>
+        <a href="mailto:floor_vocal@domain.com" class="teacher-info__email">floor_vocal@domain.com</a>
+        <p class="teacher-info__phone">+4520123456</p>
+      </div>
+    </div>
+    <p class="teacher-info__desc">
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab autem consectetur culpa cumque, distinctio dolor dolore dolorem doloremque ea explicabo facilis nam nesciunt nisi pariatur perspiciatis porro quis similique temporibus veniam veritatis?
+    </p>
+    <a href="#" class="teacher-info__map-toggle">toggle map</a>
+  </div>
+</div>
+
+<!-- 4. John Burke -->
+<div class="modal" id="modal-teacher-john">
+  <div class="modal__header">
+    <h3>Teacher Info</h3>
+    <button class="modal__close" type="button">&times;</button>
+  </div>
+  <div class="modal__body">
+    <div class="teacher-info__grid">
+      <img src="images/john.jpg" alt="John Burke" class="teacher-info__photo">
+      <div class="teacher-info__details">
+        <div class="teacher-info__top">
+          <h4 class="teacher-info__name">John Burke</h4>
+          <span class="teacher-info__star">☆</span>
+        </div>
+        <p class="teacher-info__subject">Computer Science</p>
+        <p class="teacher-info__location">Brussels, Belgium</p>
+        <p class="teacher-info__meta">36, Male</p>
+        <a href="mailto:john_cs@domain.com" class="teacher-info__email">john_cs@domain.com</a>
+        <p class="teacher-info__phone">+3221234567</p>
+      </div>
+    </div>
+    <p class="teacher-info__desc">
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab autem consectetur culpa cumque, distinctio dolor dolore dolorem doloremque ea explicabo facilis nam nesciunt nisi pariatur perspiciatis porro quis similique temporibus veniam veritatis?
+    </p>
+    <a href="#" class="teacher-info__map-toggle">toggle map</a>
+  </div>
+</div>
+
+<!-- 5. Ari Tang -->
+<div class="modal" id="modal-teacher-ari">
+  <div class="modal__header">
+    <h3>Teacher Info</h3>
+    <button class="modal__close" type="button">&times;</button>
+  </div>
+  <div class="modal__body">
+    <div class="teacher-info__grid">
+      <img src="images/ari.jpg" alt="Ari Tang" class="teacher-info__photo">
+      <div class="teacher-info__details">
+        <div class="teacher-info__top">
+          <h4 class="teacher-info__name">Ari Tang</h4>
+          <span class="teacher-info__star teacher-info__star--active">★</span>
+        </div>
+        <p class="teacher-info__subject">Biology</p>
+        <p class="teacher-info__location">Beijing, China</p>
+        <p class="teacher-info__meta">29, Female</p>
+        <a href="mailto:ari_biology@domain.com" class="teacher-info__email">ari_biology@domain.com</a>
+        <p class="teacher-info__phone">+861012345678</p>
+      </div>
+    </div>
+    <p class="teacher-info__desc">
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab autem consectetur culpa cumque, distinctio dolor dolore dolorem doloremque ea explicabo facilis nam nesciunt nisi pariatur perspiciatis porro quis similique temporibus veniam veritatis?
+    </p>
+    <a href="#" class="teacher-info__map-toggle">toggle map</a>
+  </div>
+</div>
+
+<!-- 6. Rachel Andrew -->
+<div class="modal" id="modal-teacher-rachel">
+  <div class="modal__header">
+    <h3>Teacher Info</h3>
+    <button class="modal__close" type="button">&times;</button>
+  </div>
+  <div class="modal__body">
+    <div class="teacher-info__grid">
+      <img src="images/rachel.jpg" alt="Rachel Andrew" class="teacher-info__photo">
+      <div class="teacher-info__details">
+        <div class="teacher-info__top">
+          <h4 class="teacher-info__name">Rachel Andrew</h4>
+          <span class="teacher-info__star">☆</span>
+        </div>
+        <p class="teacher-info__subject">Medicine</p>
+        <p class="teacher-info__location">London, UK</p>
+        <p class="teacher-info__meta">45, Female</p>
+        <a href="mailto:rachel_med@domain.com" class="teacher-info__email">rachel_med@domain.com</a>
+        <p class="teacher-info__phone">+442079460912</p>
+      </div>
+    </div>
+    <p class="teacher-info__desc">
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab autem consectetur culpa cumque, distinctio dolor dolore dolorem doloremque ea explicabo facilis nam nesciunt nisi pariatur perspiciatis porro quis similique temporibus veniam veritatis?
+    </p>
+    <a href="#" class="teacher-info__map-toggle">toggle map</a>
+  </div>
+</div>
+
+<!-- 7. Anna Muzychuk (З ініціалами) -->
+<div class="modal" id="modal-teacher-anna">
+  <div class="modal__header">
+    <h3>Teacher Info</h3>
+    <button class="modal__close" type="button">&times;</button>
+  </div>
+  <div class="modal__body">
+    <div class="teacher-info__grid">
+      <div class="teacher-info__photo teacher-info__photo--initials">
+        <span>A.M</span>
+      </div>
+      <div class="teacher-info__details">
+        <div class="teacher-info__top">
+          <h4 class="teacher-info__name">Anna Muzychuk</h4>
+          <span class="teacher-info__star">☆</span>
+        </div>
+        <p class="teacher-info__subject">Chess</p>
+        <p class="teacher-info__location">Minsk, Belarus</p>
+        <p class="teacher-info__meta">33, Female</p>
+        <a href="mailto:anna_chess@domain.com" class="teacher-info__email">anna_chess@domain.com</a>
+        <p class="teacher-info__phone">+375291234567</p>
+      </div>
+    </div>
+    <p class="teacher-info__desc">
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab autem consectetur culpa cumque, distinctio dolor dolore dolorem doloremque ea explicabo facilis nam nesciunt nisi pariatur perspiciatis porro quis similique temporibus veniam veritatis?
+    </p>
+    <a href="#" class="teacher-info__map-toggle">toggle map</a>
+  </div>
+</div>
+
+<!-- 8. Radoslaw Ljuboevic -->
+<div class="modal" id="modal-teacher-radoslaw">
+  <div class="modal__header">
+    <h3>Teacher Info</h3>
+    <button class="modal__close" type="button">&times;</button>
+  </div>
+  <div class="modal__body">
+    <div class="teacher-info__grid">
+      <div class="teacher-info__photo teacher-info__photo--initials">
+        <span>R.L</span>
+      </div>
+      <div class="teacher-info__details">
+        <div class="teacher-info__top">
+          <h4 class="teacher-info__name">Radoslaw Ljuboevic</h4>
+          <span class="teacher-info__star">☆</span>
+        </div>
+        <p class="teacher-info__subject">Physics</p>
+        <p class="teacher-info__location">Warsaw, Poland</p>
+        <p class="teacher-info__meta">51, Male</p>
+        <a href="mailto:radoslaw_phys@domain.com" class="teacher-info__email">radoslaw_phys@domain.com</a>
+        <p class="teacher-info__phone">+48221234567</p>
+      </div>
+    </div>
+    <p class="teacher-info__desc">
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab autem consectetur culpa cumque, distinctio dolor dolore dolorem doloremque ea explicabo facilis nam nesciunt nisi pariatur perspiciatis porro quis similique temporibus veniam veritatis?
+    </p>
+    <a href="#" class="teacher-info__map-toggle">toggle map</a>
+  </div>
+</div>
 
       </div>
       <script type="text/javascript" src="./js/index.js"></script>
