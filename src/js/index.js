@@ -41,7 +41,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Клік на хрестик
   closeButtons.forEach((btn) => {
     btn.addEventListener('click', (e) => {
       e.stopPropagation();
@@ -49,7 +48,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Клік на фон (оверлей)
   if (overlay) {
     overlay.addEventListener('click', (e) => {
       if (e.target === overlay) {
