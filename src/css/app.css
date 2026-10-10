@@ -335,7 +335,7 @@ h2 {
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.6);
-  display: none; /* За замовчуванням сховано */
+  display: none; /* За замовчуванням приховано, JS перемикає на flex */
   align-items: center;
   justify-content: center;
   z-index: 1000;
@@ -349,10 +349,10 @@ h2 {
   max-height: 90vh;
   overflow-y: auto;
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
-  display: none; /* За замовчуванням сховано */
+  display: none; /* За замовчуванням приховано */
 }
 
-/* Клас для активного модального вікна */
+/* Відображається лише вікно з цим класом */
 .modal--active {
   display: block;
 }

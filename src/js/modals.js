@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+export function initModals() {
   const overlay = document.getElementById('modal-overlay');
   const modals = document.querySelectorAll('.modal');
   const closeButtons = document.querySelectorAll('.modal__close');
@@ -18,29 +18,41 @@ document.addEventListener('DOMContentLoaded', () => {
     modals.forEach((modal) => modal.classList.remove('modal--active'));
   };
 
-  // Кнопки "Add teacher"
+  //  "Add teacher"
   const addButtons = document.querySelectorAll('.btn--outline');
   addButtons.forEach((btn) => {
-    if (btn.textContent.trim().toLowerCase() === 'add teacher') {
+    if (btn.textContent.trim().toLowerCase().includes('add teacher')) {
       btn.addEventListener('click', (e) => {
         e.preventDefault();
+        e.stopPropagation();
         openModal('modal-add-teacher');
       });
     }
   });
 
-  // Картки викладачів
-  const teacherCards = document.querySelectorAll('.teachers-grid .teacher-card');
-  teacherCards.forEach((card) => {
-    card.style.cursor = 'pointer';
-    card.addEventListener('click', () => {
-      const modalId = card.getAttribute('data-modal-id');
-      if (modalId) {
-        openModal(modalId);
+  // Делегування кліку для карток викладачів (знаходить картку навіть при кліку на фото/текст)
+  const teachersGrid = document.querySelector('.teachers-grid');
+  if (teachersGrid) {
+    teachersGrid.addEventListener('click', (e) => {
+      const card = e.target.closest('.teacher-card');
+      if (card) {
+        const modalId = card.getAttribute('data-modal-id');
+        if (modalId) {
+          e.stopPropagation();
+          openModal(modalId);
+        }
       }
+    });
+  }
+
+  // Запобігання миттєвому закриттю при кліку всередині модального вікна
+  modals.forEach((modal) => {
+    modal.addEventListener('click', (e) => {
+      e.stopPropagation();
     });
   });
 
+  // 4. Закриття через хрестик
   closeButtons.forEach((btn) => {
     btn.addEventListener('click', (e) => {
       e.stopPropagation();
@@ -55,11 +67,9 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
-
-  // Esc
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
       closeAllModals();
     }
   });
-});
+}
