@@ -1,4 +1,7 @@
-import testModules from './test-module.js';
-/** ******** Your code here! *********** */
+import { initModals } from './modals.js';
+import { runLab02Demo } from './lab02.js';
 
-console.log(testModules.hello);
+document.addEventListener('DOMContentLoaded', () => {
+  initModals();
+  runLab02Demo();
+});
