@@ -9,17 +9,42 @@ const COURSES = [
 
 const getRandomCourse = () => COURSES[Math.floor(Math.random() * COURSES.length)];
 
-const calculateAge = (dateString) => {
+
+const normalizeCourse = (course) => {
+  if (typeof course !== 'string' || course.trim() === '') return getRandomCourse();
+  const trimmed = course.trim();
+  const known = COURSES.find((c) => c.toLowerCase() === trimmed.toLowerCase());
+  return known || trimmed.charAt(0).toUpperCase() + trimmed.slice(1);
+};
+
+
+const normalizeDate = (value) => {
+  if (!value) return null;
+  const date = new Date(value);
+  return Number.isNaN(date.getTime()) ? null : date.toISOString();
+};
+
+
+export const calculateAge = (dateString, now = new Date()) => {
   if (!dateString) return null;
-  const birthDate = new Date(dateString);
-  const diffMs = Date.now() - birthDate.getTime();
-  const ageDt = new Date(diffMs);
-  return Math.abs(ageDt.getUTCFullYear() - 1970);
+  const birth = new Date(dateString);
+  if (Number.isNaN(birth.getTime())) return null;
+
+  let age = now.getUTCFullYear() - birth.getUTCFullYear();
+  const monthDiff = now.getUTCMonth() - birth.getUTCMonth();
+  const birthdayNotYet = monthDiff < 0
+    || (monthDiff === 0 && now.getUTCDate() < birth.getUTCDate());
+  if (birthdayNotYet) age -= 1;
+
+  return age;
 };
 
 export function formatUser(user) {
-  const birthDate = user.dob?.date || user.b_date || user.b_day || null;
-  const calculatedAge = user.dob?.age || user.age || calculateAge(birthDate);
+  const birthDate = normalizeDate(user.dob?.date || user.b_date || user.b_day);
+  // Вік рахуємо з дати народження; значення з моку — лише запасний варіант
+  const age = calculateAge(birthDate) ?? user.dob?.age ?? user.age ?? null;
+
+  const rawId = typeof user.id === 'string' ? user.id : user.id?.value;
 
   return {
     gender: user.gender || null,
@@ -33,29 +58,36 @@ export function formatUser(user) {
     timezone: user.location?.timezone || user.timezone || null,
     email: user.email || null,
     b_date: birthDate,
-    age: calculatedAge,
+    age,
     phone: user.phone || null,
     picture_large: user.picture?.large || user.picture_large || null,
     picture_thumbnail: user.picture?.thumbnail || user.picture_thumbnail || null,
 
-    id: user.login?.uuid || (typeof user.id === 'string' ? user.id : user.id?.value) || crypto.randomUUID(),
+    id: user.login?.uuid || rawId || crypto.randomUUID(),
     favorite: typeof user.favorite === 'boolean' ? user.favorite : false,
-    course: user.course || getRandomCourse(),
+    course: normalizeCourse(user.course),
     bg_color: typeof user.bg_color === 'string' ? user.bg_color : '#ffffff',
     note: typeof user.note === 'string' ? user.note : '',
   };
 }
 
+/**
+ * Ключ дедуплікації: email (без регістру), а якщо його немає — повне ім'я.
+ */
+const getUniqueKey = (user) => {
+  if (user.email) return `email:${user.email.toLowerCase()}`;
+  if (user.full_name) return `name:${user.full_name.toLowerCase()}`;
+  return `id:${user.id}`;
+};
+
 export function processAndMergeUsers(randomUsers = [], additional = []) {
-  const formattedRandom = randomUsers.map(formatUser);
-  const formattedAdditional = additional.map(formatUser);
-  const combinedUsers = [...formattedRandom, ...formattedAdditional];
+  const combinedUsers = [...randomUsers, ...additional].map(formatUser);
 
   const uniqueUsersMap = new Map();
   for (const user of combinedUsers) {
-    const uniqueKey = user.email || user.id;
-    if (!uniqueUsersMap.has(uniqueKey)) {
-      uniqueUsersMap.set(uniqueKey, user);
+    const key = getUniqueKey(user);
+    if (!uniqueUsersMap.has(key)) {
+      uniqueUsersMap.set(key, user);
     }
   }
 
@@ -63,9 +95,18 @@ export function processAndMergeUsers(randomUsers = [], additional = []) {
 }
 
 // --- TASK 2 ---
-export function validateUser(user) {
-  const isCapitalized = (val) => typeof val === 'string' && /^[A-ZА-ЯІЇЄҐ]/.test(val);
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const PHONE_ALLOWED_REGEX = /^[+()\d\s\-.]+$/;
 
+const isCapitalized = (val) => typeof val === 'string' && /^[A-ZА-ЯІЇЄҐ]/.test(val);
+
+const isValidPhone = (phone) => {
+  if (typeof phone !== 'string' || !PHONE_ALLOWED_REGEX.test(phone.trim())) return false;
+  const digits = phone.replace(/\D/g, '');
+  return digits.length >= 7 && digits.length <= 15;
+};
+
+export function validateUser(user) {
   if (!isCapitalized(user.full_name) || !isCapitalized(user.gender)) {
     return false;
   }
@@ -77,76 +118,119 @@ export function validateUser(user) {
     }
   }
 
-  if (typeof user.age !== 'number' || Number.isNaN(user.age)) {
+  if (!Number.isInteger(user.age) || user.age < 0 || user.age > 120) {
     return false;
   }
 
-  if (typeof user.email !== 'string' || !user.email.includes('@')) {
+  if (typeof user.email !== 'string' || !EMAIL_REGEX.test(user.email)) {
     return false;
   }
 
-  if (typeof user.phone !== 'string' || user.phone.trim() === '') {
-    return false;
-  }
-
-  return true;
+  return isValidPhone(user.phone);
 }
 
-// --- TASK 3 ---
-export function filterUsers(users, filterParams) {
-  return users.filter((user) => {
-    return Object.entries(filterParams).every(([key, value]) => {
-      if (value === undefined) return true; //=== строге порівняння без приведення типу
-      return user[key] === value;
-    });
-  });
+const matchesFilter = (userValue, condition) => {
+  if (typeof condition === 'function') return Boolean(condition(userValue));
+
+  if (Array.isArray(condition)) {
+    return condition.some((item) => matchesFilter(userValue, item));
+  }
+
+  if (condition !== null && typeof condition === 'object') {
+    if (typeof userValue !== 'number') return false;
+    const { min = -Infinity, max = Infinity } = condition;
+    return userValue >= min && userValue <= max;
+  }
+
+  if (typeof condition === 'string' && typeof userValue === 'string') {
+    return userValue.toLowerCase() === condition.toLowerCase();
+  }
+
+  return userValue === condition;
+};
+
+export function filterUsers(users, filterParams = {}) {
+  return users.filter((user) => Object.entries(filterParams).every(([key, condition]) => {
+    if (condition === undefined) return true;
+    return matchesFilter(user[key], condition);
+  }));
 }
 
 // --- TASK 4 ---
+const DATE_FIELDS = new Set(['b_date']);
+
+/** Приводить значення до порівнюваного вигляду (дати -> timestamp). */
+const getComparable = (user, field) => {
+  const value = user[field];
+  if (value === undefined || value === null) return null;
+  if (DATE_FIELDS.has(field)) {
+    const time = Date.parse(value);
+    return Number.isNaN(time) ? null : time;
+  }
+  return value;
+};
+
+const compareValues = (a, b) => {
+  if (typeof a === 'string' && typeof b === 'string') {
+    return a.localeCompare(b, undefined, { sensitivity: 'base' });
+  }
+  if (typeof a === 'number' && typeof b === 'number') {
+    return a - b;
+  }
+  if (typeof a === 'boolean' && typeof b === 'boolean') {
+    return Number(a) - Number(b);
+  }
+  return 0;
+};
+
 export function sortUsers(users, sortBy, order = 'asc') {
+  const direction = order === 'desc' ? -1 : 1;
+
   return [...users].sort((a, b) => {
-    const valA = a[sortBy];
-    const valB = b[sortBy];
+    const valA = getComparable(a, sortBy);
+    const valB = getComparable(b, sortBy);
 
-    if (valA === undefined || valA === null) return 1;
-    if (valB === undefined || valB === null) return -1;
+    // Порожні значення завжди в кінці, незалежно від напрямку
+    if (valA === null && valB === null) return 0;
+    if (valA === null) return 1;
+    if (valB === null) return -1;
 
-    let comparison = 0;
-    if (typeof valA === 'string' && typeof valB === 'string') {
-      comparison = valA.localeCompare(valB);
-    } else if (typeof valA === 'number' && typeof valB === 'number') {
-      comparison = valA - valB;
-    }
-
-    return order === 'desc' ? -comparison : comparison;
+    return compareValues(valA, valB) * direction;
   });
 }
 
 // --- TASK 5 ---
+const matchesSearch = (userValue, query) => {
+  if (userValue === undefined || userValue === null) return false;
+  if (typeof userValue === 'string' && typeof query === 'string') {
+    return userValue.toLowerCase().includes(query.toLowerCase());
+  }
+  if (typeof userValue === 'number' && typeof query === 'string' && query.trim() !== '') {
+    return userValue === Number(query);
+  }
+  return userValue === query;
+};
+
+/** field — назва поля або масив полів (пошук за будь-яким із них). */
 export function findUser(users, field, value) {
-  return users.find((user) => {
+  const fields = Array.isArray(field) ? field : [field];
+  return users.find((user) => fields.some((f) => matchesSearch(user[f], value)));
+}
 
-    const userValue = user[field];
-
-    if (typeof userValue === 'string' && typeof value === 'string') 
-    {
-      return userValue.toLowerCase().includes(value.toLowerCase());
-    }
-    return userValue === value;
-
-  });
+/** Усі збіги за name, note та age — для рядка пошуку в UI. */
+export function searchUsers(users, query) {
+  const trimmed = String(query ?? '').trim();
+  if (trimmed === '') return users;
+  return users.filter((user) => ['full_name', 'note', 'age']
+    .some((f) => matchesSearch(user[f], trimmed)));
 }
 
 // --- TASK 6 ---
-export function getMatchingPercentage(users, searchCondition)
-{
+export function getMatchingPercentage(users, searchCondition) {
   if (!users || users.length === 0) return 0;
   const matchedUsers = users.filter(searchCondition);
   return Math.round((matchedUsers.length / users.length) * 100);
 }
-
-
-
 
 export function runLab02Demo() {
   console.group('=== ЛАБОРАТОРНА РОБОТА №2 ===');
@@ -160,11 +244,20 @@ export function runLab02Demo() {
   const filtered = filterUsers(teachers, { country: 'Germany', gender: 'male' });
   console.log('3. Фільтрація (Німеччина, чоловіки):', filtered);
 
-  const sorted = sortUsers(teachers, 'age', 'desc');
-  console.log('4. Сортування за віком (спадання):', sorted);
+  const byAgeRange = filterUsers(teachers, { age: { min: 18, max: 31 } });
+  console.log('3a. Фільтрація (вік 18–31):', byAgeRange);
+
+  const sortedByAge = sortUsers(teachers, 'age', 'desc');
+  console.log('4. Сортування за віком (спадання):', sortedByAge);
+
+  const sortedByDate = sortUsers(teachers, 'b_date', 'asc');
+  console.log('4a. Сортування за датою народження (від найстарших):', sortedByDate);
 
   const found = findUser(teachers, 'full_name', 'Norbert');
   console.log('5. Пошук (Norbert):', found);
+
+  const searched = searchUsers(teachers, 'cats');
+  console.log('5a. Пошук за name/note/age ("cats"):', searched);
 
   const percentOver40 = getMatchingPercentage(teachers, (u) => u.age > 40);
   console.log(`6. Відсоток викладачів старше 40 років: ${percentOver40}%`);
