@@ -128,7 +128,7 @@ export function validateUser(user) {
 
   return isValidPhone(user.phone);
 }
-
+// --- TASK 3 ---
 const matchesFilter = (userValue, condition) => {
   if (typeof condition === 'function') return Boolean(condition(userValue));
 

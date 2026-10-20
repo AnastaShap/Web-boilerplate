@@ -621,3 +621,72 @@ h2 {
     flex-direction: column;
   }
 }
+
+/* ---------- Виправлення після рев'ю (Lab 4, підготовка) ---------- */
+
+.teacher-card {
+  cursor: pointer;
+}
+
+.teacher-card:focus-visible {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 4px;
+}
+
+.empty-message {
+  grid-column: 1 / -1;
+  text-align: center;
+  color: var(--text-muted);
+  padding: 20px 0;
+}
+
+/* Таблиця статистики: індикатор сортування */
+.statistics-table th[data-sort] {
+  cursor: pointer;
+  user-select: none;
+}
+
+.statistics-table th[aria-sort="ascending"]::after {
+  content: " ▲";
+  font-size: 11px;
+}
+
+.statistics-table th[aria-sort="descending"]::after {
+  content: " ▼";
+  font-size: 11px;
+}
+
+.pagination a[aria-current="page"] {
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.carousel__btn:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.carousel__btn:disabled:hover {
+  color: var(--text-muted);
+}
+
+/* Форма додавання викладача */
+.form-group {
+  margin-bottom: 15px;
+}
+
+.modal__form .btn--outline {
+  margin-top: 5px;
+}
+
+.form-group--invalid input,
+.form-group--invalid select,
+.form-group--invalid textarea {
+  border-color: #d93025;
+}
+
+.form-error {
+  margin: 5px 0 0;
+  font-size: 12px;
+  color: #d93025;
+}
