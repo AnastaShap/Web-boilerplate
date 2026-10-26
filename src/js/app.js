@@ -1,8 +1,9 @@
 import { initModals, openModal, closeAllModals } from './modals.js';
 import {
-  initTeachers, getTeachers, addTeacher, getVisibleTeachers, getFavorites, getTeacherById, toggleFavorite,
-  setFilters, setQuery,
+  initTeachers, loadMoreTeachers, getTeachers, addTeacher, getVisibleTeachers, getFavorites,
+  getTeacherById, toggleFavorite, setFilters, setQuery,
 } from './state.js';
+import { postTeacher } from './api.js';
 import {
   createTeacherCard, createTeacherInfo, createEmptyMessage, setStarState,
 } from './render.js';
@@ -12,14 +13,25 @@ import { readFilters, fillCountryOptions } from './filters.js';
 import { initSearch, readQuery } from './search.js';
 import { initTeacherForm } from './teacher-form.js';
 
-function init() {
+async function init() {
   const teachersGrid = document.getElementById('teachers-grid');
+  const teachersStatus = document.getElementById('teachers-status');
+  const nextButton = document.getElementById('teachers-next');
   const infoContent = document.getElementById('teacher-info-content');
   const filtersForm = document.querySelector('.filters');
   const searchForm = document.querySelector('.search-form');
 
-  initTeachers();
   initModals();
+
+  // Завдання 1: початкові дані беруться із запиту
+  teachersGrid.replaceChildren(createEmptyMessage('Loading teachers…'));
+  let loadFailed = false;
+  try {
+    await initTeachers();
+  } catch (error) {
+    console.error(error);
+    loadFailed = true;
+  }
 
   const favorites = initFavorites({
     container: document.getElementById('favorites-list'),
@@ -35,13 +47,14 @@ function init() {
   /** Перемальовує всі списки, що залежать від стану викладачів. */
   const refresh = ({ resetPage = false } = {}) => {
     const visibleTeachers = getVisibleTeachers();
-    teachersGrid.replaceChildren(
-      ...(visibleTeachers.length > 0
-        ? visibleTeachers.map((teacher) => createTeacherCard(teacher))
+    teachersGrid.replaceChildren(...(visibleTeachers.length > 0 ? 
+        visibleTeachers.map((teacher) => createTeacherCard(teacher))
         : [createEmptyMessage('No teachers match your search or filters.')]),
     );
     favorites.update(getFavorites());
-    statistics.update(visibleTeachers, { resetPage });
+    statistics.update(visibleTeachers, {
+       resetPage 
+      });
   };
 
   const showTeacherInfo = (id) => {
@@ -51,7 +64,7 @@ function init() {
     openModal('modal-teacher-info');
   };
 
-  // Клік або Enter/Space по картці (сітка та карусель) відкриває інформацію про викладача
+
   const handleCardActivate = (event) => {
     const card = event.target.closest('.teacher-card');
     if (!card) return;
@@ -67,7 +80,6 @@ function init() {
     container.addEventListener('keydown', handleCardActivate);
   });
 
-  // Зірочка в модальному вікні: додати/прибрати з вибраних
   infoContent.addEventListener('click', (event) => {
     if (event.target.closest('.teacher-info__map-toggle')) {
       event.preventDefault(); // карта буде в одній із наступних лабораторних
@@ -81,20 +93,40 @@ function init() {
     refresh();
   });
 
-  // Фільтри та пошук разом визначають, яких викладачів показувати
+  // Завдання 2: фільтри та пошук працюють з даними із запиту
   const applyView = () => {
     setFilters(readFilters(filtersForm));
     setQuery(readQuery(searchForm));
     refresh({ resetPage: true });
   };
   filtersForm.addEventListener('change', applyView);
+  filtersForm.addEventListener('submit', (e) => e.preventDefault());
   initSearch(searchForm, applyView);
 
-  // Форма додавання викладача (teach_add_popup)
+  // Завдання 4: "Next" завантажує ще 10 користувачів і додає їх до сторінки
+  nextButton.addEventListener('click', async () => {
+    nextButton.disabled = true;
+    nextButton.textContent = 'Loading…';
+    teachersStatus.textContent = '';
+    try {
+      await loadMoreTeachers();
+      fillCountryOptions(filtersForm.elements.country, getTeachers());
+      refresh(); // статистика бачить нову кількість, сторінку не скидаємо
+    } catch (error) {
+      console.error(error);
+      teachersStatus.textContent = 'Could not load more teachers. Please try again.';
+    } finally {
+      nextButton.disabled = false;
+      nextButton.textContent = 'Next';
+    }
+  });
+
+  // Завдання 5: валідна форма -> POST на json-server -> додавання на сторінку
   initTeacherForm({
     form: document.getElementById('teach_add_form'),
     getTeachers,
-    onAdd: (teacher) => {
+    onAdd: async (teacher) => {
+      await postTeacher(teacher); // якщо сервер недоступний — помилка покажеться у формі
       addTeacher(teacher);
       closeAllModals();
       fillCountryOptions(filtersForm.elements.country, getTeachers());
@@ -102,13 +134,16 @@ function init() {
     },
   });
 
-  // Форма фільтрів не має відправлятися на сервер
-  filtersForm.addEventListener('submit', (e) => e.preventDefault());
-
   fillCountryOptions(filtersForm.elements.country, getTeachers());
   applyView(); // враховує значення, які браузер міг відновити після перезавантаження
 
-  // Демо лабораторної №2 підвантажується лише з ?debug у URL
+  if (loadFailed) {
+    teachersGrid.replaceChildren(
+      createEmptyMessage('Could not load teachers. Check your connection and reload the page.'),
+    );
+  }
+
+  // Демо лаб 2 підвантажується лише з ?debug у URL
   if (new URLSearchParams(window.location.search).has('debug')) {
     import('./lab02.js').then(({ runLab02Demo }) => runLab02Demo());
   }

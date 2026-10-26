@@ -1,9 +1,10 @@
-/** Поточний пошуковий запит без зайвих пробілів. */
+
 export const readQuery = (form) => form.elements.query.value.trim();
 
 /**
- * Пошук за name, note та age (Завдання 4).
- * Працює "наживо" під час введення, а також по Enter / кнопці Search.
+ (Завдання 4).
+ функціональність пошуку по викладачах 
+за параметрами: ім’я, коментар та вік (name, note, age) 
  */
 export function initSearch(form, onSearch) {
   form.elements.query.addEventListener('input', onSearch);

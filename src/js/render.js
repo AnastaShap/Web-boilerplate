@@ -1,5 +1,5 @@
 /** Створює елемент: 
- * props задаються як властивості, а role та aria-атрибути — через setAttribute. */
+ * props задаються як властивості, а role та aria-атрибути  через setAttribute. */
 const capitalize = (text = '') => text.charAt(0).toUpperCase() + text.slice(1);
 export function getInitials(fullName = '') {
   return fullName
