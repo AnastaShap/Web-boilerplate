@@ -7,10 +7,8 @@ const parseAgeRange = (value) => {
   return { min, max };
 };
 
-/**
- * Зчитує значення форми фільтрів у параметри для filterUsers().
- * Ключі збігаються з полями викладача: age, country, gender, favorite, picture_large.
- */
+
+ //Зчитує значення форми фільтрів у параметри для filterUsers()
 export function readFilters(form) {
   const data = new FormData(form);
 
@@ -23,7 +21,6 @@ export function readFilters(form) {
   };
 }
 
-/** Додає в select унікальні країни з даних (за абеткою). */
 export function fillCountryOptions(select, teachers) {
   const selected = select.value;
   const [allOption] = select.options;

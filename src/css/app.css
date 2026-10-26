@@ -109,6 +109,7 @@ body {
   margin: 0;
 }
 
+/* stylelint-disable-next-line no-descending-specificity */
 .nav-list a {
   text-decoration: none;
   color: var(--primary-color);
@@ -183,6 +184,7 @@ h2 {
 
 .teacher-card {
   text-align: center;
+  cursor: pointer;
 }
 
 .teacher-card__avatar-wrap {
@@ -510,7 +512,6 @@ h2 {
 }
 
 /* (Завдання 4) */
-
 * {
   box-sizing: border-box;
 }
@@ -624,10 +625,6 @@ h2 {
 
 /* ---------- Виправлення після рев'ю (Lab 4, підготовка) ---------- */
 
-.teacher-card {
-  cursor: pointer;
-}
-
 .teacher-card:focus-visible {
   outline: 2px solid var(--primary-color);
   outline-offset: 4px;
@@ -671,6 +668,7 @@ h2 {
 }
 
 /* Форма додавання викладача */
+/* stylelint-disable-next-line no-descending-specificity */
 .form-group {
   margin-bottom: 15px;
 }
@@ -679,14 +677,44 @@ h2 {
   margin-top: 5px;
 }
 
+/* stylelint-disable no-descending-specificity */
 .form-group--invalid input,
 .form-group--invalid select,
 .form-group--invalid textarea {
   border-color: #d93025;
 }
+/* stylelint-enable no-descending-specificity */
 
 .form-error {
   margin: 5px 0 0;
   font-size: 12px;
   color: #d93025;
+}
+
+/* ---------- Lab 4: запити, пагінація "Next", json-server ---------- */
+
+.teachers-actions {
+  margin-top: 30px;
+  text-align: center;
+}
+
+.teachers-status {
+  min-height: 1.4em;
+  margin-bottom: 10px;
+  font-size: 14px;
+  color: #d93025;
+}
+
+.btn--outline:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.btn--outline:disabled:hover {
+  background-color: transparent;
+  color: var(--primary-color);
+}
+
+.form-error--general {
+  margin: 0 0 10px;
 }

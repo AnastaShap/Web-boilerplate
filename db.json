@@ -1,0 +1,26 @@
+{
+  "teachers": [
+    {
+      "gender": "female",
+      "title": null,
+      "full_name": "Анастасія Олександрівна Шаповал",
+      "city": "Kyiv",
+      "state": null,
+      "country": "Ukraine",
+      "postcode": null,
+      "coordinates": null,
+      "timezone": null,
+      "email": "sapovalnasta823@gmail.com",
+      "b_date": "2006-10-07",
+      "age": 20,
+      "phone": "0666163290",
+      "picture_large": null,
+      "picture_thumbnail": null,
+      "id": "ac5eeadc-8c74-4bdd-9336-a9003214d083",
+      "favorite": false,
+      "course": "Computer Science",
+      "bg_color": "#ffffff",
+      "note": ""
+    }
+  ]
+}

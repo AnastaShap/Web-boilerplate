@@ -72,6 +72,10 @@
 
         <!-- Картки викладачів додаються через JS -->
         <div class="teachers-grid" id="teachers-grid"></div>
+        <div class="teachers-actions">
+          <p class="teachers-status" id="teachers-status" role="status"></p>
+          <button class="btn btn--outline" id="teachers-next" type="button">Next</button>
+        </div>
       </section>
 
       <section class="statistics-section" id="statistics">
@@ -185,6 +189,7 @@
           <label for="add-note">Notes</label>
           <textarea id="add-note" name="note" rows="4"></textarea>
         </div>
+        <p class="form-error form-error--general" role="alert" hidden></p>
         <button type="submit" class="btn btn--outline">Add</button>
       </form>
     </div>
