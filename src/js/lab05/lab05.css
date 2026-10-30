@@ -1,0 +1,39 @@
+/* Лаб 5 */
+.lab5-map {
+  height: 300px;
+  margin-top: 12px;
+}
+
+.lab5-map[hidden],
+.lab5-charts[hidden],
+#lab5-pivot[hidden] {
+  display: none;
+}
+
+.lab5-switch {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 25px;
+}
+
+.lab5-charts {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
+}
+
+.lab5-chart {
+  min-width: 0;
+}
+
+.lab5-chart h3 {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+@media (max-width: 767px) {
+  .lab5-charts {
+    grid-template-columns: 1fr;
+  }
+}

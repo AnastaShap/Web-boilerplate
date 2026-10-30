@@ -85,7 +85,7 @@ export function setStarState(button, isFavorite) {
   button.setAttribute('aria-pressed', String(isFavorite));
   button.setAttribute('aria-label', isFavorite ? 'Remove from favorites' : 'Add to favorites');
 }
- 
+
 function createInfoPhoto(teacher) {
   if (teacher.picture_large) {
     return el('img', {

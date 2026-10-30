@@ -12,6 +12,7 @@ import { initStatistics } from './statistics.js';
 import { readFilters, fillCountryOptions } from './filters.js';
 import { initSearch, readQuery } from './search.js';
 import { initTeacherForm } from './teacher-form.js';
+import { initLab05 } from './lab05/lab05.js';
 
 async function init() {
   const teachersGrid = document.getElementById('teachers-grid');
@@ -22,6 +23,10 @@ async function init() {
   const searchForm = document.querySelector('.search-form');
 
   initModals();
+
+  const lab05 = initLab05({
+  infoContent,
+  statisticsSection: document.getElementById('statistics'), });
 
   // Завдання 1: початкові дані беруться із запиту
   teachersGrid.replaceChildren(createEmptyMessage('Loading teachers…'));
@@ -47,20 +52,21 @@ async function init() {
   /** Перемальовує всі списки, що залежать від стану викладачів. */
   const refresh = ({ resetPage = false } = {}) => {
     const visibleTeachers = getVisibleTeachers();
-    teachersGrid.replaceChildren(...(visibleTeachers.length > 0 ? 
-        visibleTeachers.map((teacher) => createTeacherCard(teacher))
-        : [createEmptyMessage('No teachers match your search or filters.')]),
+    teachersGrid.replaceChildren(...(visibleTeachers.length > 0
+      ? visibleTeachers.map((teacher) => createTeacherCard(teacher))
+      : [createEmptyMessage('No teachers match your search or filters.')]),
     );
     favorites.update(getFavorites());
-    statistics.update(visibleTeachers, {
-       resetPage 
-      });
+    statistics.update(visibleTeachers, { resetPage });
+    // ✖ ВИДАЛЕНО: const lab05 = initLab05({ infoContent, statisticsSection: ... });
+    lab05.updateStatistics(visibleTeachers); // ▼ ДОДАНО (Лаб 5)
   };
 
   const showTeacherInfo = (id) => {
     const teacher = getTeacherById(id);
     if (!teacher) return;
     infoContent.replaceChildren(createTeacherInfo(teacher));
+    lab05.addTeacherExtras(teacher);
     openModal('modal-teacher-info');
   };
 
