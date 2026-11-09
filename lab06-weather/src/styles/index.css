@@ -1,0 +1,229 @@
+/* Токени теми: зимове київське небо. Темна тема — нічне небо. */
+:root {
+  --color-zenith: #b9cde3;
+  --color-sky: #dde7f1;
+  --color-surface: #f8fafc;
+  --color-today: #eef3f9;
+  --color-ink: #15233d;
+  --color-muted: #56657d;
+  --color-line: #c6d2df;
+  --color-cold: #3a78c4;
+  --color-warm: #e08a2e;
+  --color-cloud: #9fb2c8;
+  --color-focus: #3a78c4;
+  --color-error: #b42318;
+  --color-error-bg: #fdecea;
+
+  --font-display: 'Unbounded', 'Segoe UI', system-ui, sans-serif;
+  --font-body: 'Golos Text', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  --page-width: 72rem;
+
+  color-scheme: light;
+  font-family: var(--font-body);
+  font-size: 100%;
+  line-height: 1.5;
+  color: var(--color-ink);
+  background: var(--color-sky);
+  -webkit-font-smoothing: antialiased;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-zenith: #0a1322;
+    --color-sky: #101b2d;
+    --color-surface: #17253b;
+    --color-today: #1c2d47;
+    --color-ink: #e6edf5;
+    --color-muted: #9aabc2;
+    --color-line: #2b3d57;
+    --color-cold: #6fa6ea;
+    --color-warm: #f2a65a;
+    --color-cloud: #5e7391;
+    --color-focus: #8cbcf5;
+    --color-error: #ff9b91;
+    --color-error-bg: #3a1f22;
+
+    color-scheme: dark;
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--color-sky);
+}
+
+h1,
+h2,
+p,
+dl,
+dd {
+  margin: 0;
+}
+
+button,
+input {
+  font: inherit;
+  color: inherit;
+}
+
+a {
+  color: var(--color-cold);
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+/* Кнопки */
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.75rem;
+  padding: 0.625rem 1.25rem;
+  border: 1px solid transparent;
+  border-radius: 0.75rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.button--primary {
+  background: var(--color-ink);
+  color: var(--color-surface);
+}
+
+.button--primary:hover {
+  background: color-mix(in srgb, var(--color-ink) 85%, var(--color-cold));
+}
+
+.button--quiet {
+  min-height: 2.25rem;
+  padding: 0.375rem 0.875rem;
+  border-color: var(--color-line);
+  background: transparent;
+  color: var(--color-ink);
+  font-weight: 500;
+}
+
+.button--quiet:hover {
+  background: var(--color-today);
+}
+
+/* Поля форми */
+.field {
+  display: grid;
+  gap: 0.375rem;
+}
+
+.field__label {
+  font-weight: 600;
+}
+
+.field__hint {
+  margin-top: -0.125rem;
+  color: var(--color-muted);
+  font-size: 0.875rem;
+}
+
+.field__control {
+  position: relative;
+  display: flex;
+}
+
+.field__input {
+  width: 100%;
+  min-height: 3rem;
+  padding: 0.625rem 0.875rem;
+  border: 1px solid var(--color-line);
+  border-radius: 0.75rem;
+  background: var(--color-sky);
+}
+
+.field__input:hover {
+  border-color: var(--color-muted);
+}
+
+.field--invalid .field__input {
+  border-color: var(--color-error);
+  box-shadow: inset 0 0 0 1px var(--color-error);
+}
+
+.field__control:has(.field__toggle) .field__input {
+  padding-right: 6rem;
+}
+
+.field__toggle {
+  position: absolute;
+  inset: 0.375rem 0.375rem 0.375rem auto;
+  padding: 0 0.75rem;
+  border: 0;
+  border-radius: 0.5rem;
+  background: transparent;
+  color: var(--color-cold);
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.field__toggle:hover {
+  background: var(--color-surface);
+}
+
+.field__error {
+  color: var(--color-error);
+  font-size: 0.875rem;
+}
+
+.checkbox {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  cursor: pointer;
+}
+
+.checkbox input {
+  width: 1.125rem;
+  height: 1.125rem;
+  margin: 0;
+  accent-color: var(--color-ink);
+}
+
+/* Повідомлення на всю сторінку: 404 і помилка рендерингу */
+.page-message {
+  display: grid;
+  justify-items: start;
+  gap: 1rem;
+  max-width: 36rem;
+  margin: 0 auto;
+  padding: 18vh 1.25rem 3rem;
+}
+
+.page-message__title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(2rem, 5vw, 2.75rem);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.page-message__text {
+  color: var(--color-muted);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+  }
+}
